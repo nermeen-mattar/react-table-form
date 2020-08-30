@@ -19,11 +19,10 @@ class App extends Component {
           <h1>
             Products
           </h1>
-    </header>
+        </header>
       <div class="body"> 
-      <Route exact path='/' component={Table}/>
-      <Route path='/edit' component={Form}/>
-
+        <Route path='/edit' component={Form}/>
+        <Route path='/' component={Table}/>
       </div>
       </BrowserRouter>
     );
