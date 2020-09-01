@@ -1,20 +1,15 @@
 import React, { Component } from "react";
+import { HashRouter, Route } from "react-router-dom";
+
 import "./App.css";
-import { connect } from "react-redux";
-import Table from "./components/Table";
-import { BrowserRouter, Route } from "react-router-dom";
 import Form from "./components/Form";
-import productData from "./constants/productData.json";
+import ProductList from "./pages/ProductList";
 
-class App extends Component {
-
-  componentWillMount() {
-    this.props.onInit();
-  }
+export default class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
          <header class="header">
           <h1>
             Products
@@ -22,27 +17,9 @@ class App extends Component {
         </header>
       <div class="body"> 
         <Route path='/edit' component={Form}/>
-        <Route path='/' component={Table}/>
+        <Route exact path='/' component={ProductList}/>
       </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
-
-
-
-const mapStateToProps = state => {
-  return {
-    age: state.age
-  };
-};
-
-const mapDispachToProps = dispatch => {
-  return {
-    onInit: () => dispatch({ type: "INIT_OBJECTS", value: productData }),
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispachToProps
-)(App);

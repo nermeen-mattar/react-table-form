@@ -1,19 +1,15 @@
 import React from 'react';
-import { connect } from "react-redux";
 
 import "./index.css";
-import common from '../../styles/common';
 
-class Table extends React.Component {
+export default class Table extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            rows: []
+            heads: this.props.schema.show.map(property => property.replace('_', ' ').replace(/(?:^|\s)\S/g, a => a.toUpperCase())),
+            rows: this.props.data.map(obj => this.props.schema.show.map(property => obj[property]))
         };
-    }
-
-    componentWillUnmount() {
     }
 
     heads = objects => objects.map((headTitle, index) =>
@@ -26,14 +22,16 @@ class Table extends React.Component {
 
     cols = (properties, rowIndex) => [...properties.map((property, index) =>
           <td key={index}>{property}</td>
-    ),       <td key={properties.length}>
-        <a class="edit-row" href={`/edit?id=${rowIndex}`}>Edit</a>
-    </td>
+    ),       
+    this.props.schema.actions.showEdit(this.props.data[rowIndex])?
+    <td class="edit-row"  onClick={() => this.props.schema.actions.onEdit(this.props.data[rowIndex])} key={properties.length}>
+        Edit
+    </td> : <td></td>
     ];
 
     render() {
         return (
-      <div style={common.container}>
+      <div>
         {/* <h1>{table.title}</h1> */}
         <div class="form-control">
           <label for="search"><i class="icon-search"></i></label>
@@ -42,11 +40,11 @@ class Table extends React.Component {
         <div class="table-responsive">
           <table id="ordering-table" class="simple-table">
             <thead>        
-              {this.heads(this.props.heads)}
+              {this.heads(this.state.heads)}
               <th></th>
             </thead>
             <tbody>
-            {this.rows(this.props.rows, this.cols)}
+            {this.rows(this.state.rows, this.cols)}
             </tbody>
           </table>
         </div>
@@ -54,21 +52,3 @@ class Table extends React.Component {
         );
     }
 }
-
-const mapStateToProps = state => {
-    return {
-    heads: state.heads,
-      rows: state.rows
-    };
-  };
-  
-  const mapDispachToProps = dispatch => {
-    return {
-      onAgeUp: () => dispatch({ type: "CREATE_OBJECT", value: 1 }),
-    };
-  };
-  export default connect(
-    mapStateToProps,
-    mapDispachToProps
-  )(Table);
-  
