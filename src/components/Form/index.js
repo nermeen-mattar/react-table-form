@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import "./index.css";
 import common from '../../styles/common';
+import { useHistory } from 'react-router-dom';
 
 const formInfo = {
   title: "Sign Up"
@@ -19,10 +20,6 @@ const sectionsInfo = [{
       'customErrMsg': 'Password and Confirm password should be equal.'
   }]
 }, 
-// {
-//   'title': '',
-//   'fieldNames': ['accept-terms']
-// }
 ];
 
 const fieldsInfo = {
@@ -91,51 +88,33 @@ const fieldsInfo = {
   }
 };
 
-class Form extends React.Component {
-    constructor(props) {
-        super(props);
+function Form(props) {
 
-        this.state = {
-            objects: []
-        };
-    }
-
-
-    componentDidMount() {
-    }
-
-    componentWillUnmount() {
-    }
-
-
-    sections = sections => sections.map((section, index) => <div class="section" key={index}>
+    const renderSections = sections => sections.map((section, index) => <div class="section" key={index}>
     <h3> {section.title} </h3>
-    {this.inputs(section.fieldNames)}
+    {renderInputs(section.fieldNames)}
     </div>);
 
-    inputs = inputs => inputs.map((input, index) => 
+    const renderInputs = inputs => inputs.map((input, index) => 
         <div class="field-label">
         {fieldsInfo[input].label}
             <input key={index} type={fieldsInfo[input].type}/>
         </div>
     );
-
-    render() {
-        return (
+ 
+    return (
        <div style={common.container}>
          <div style={common.flexBetween}>
-         <a href='/'> <button style={{...common.cursorPointer, ...common.button, ...common.secondary}} >
+        <button onClick={useHistory().goBack} style={{...common.cursorPointer, ...common.button, ...common.secondary}} >
           Cancel
           </button>
-          </a>
-          <button class="save-button" style={{...common.cursorPointer, ...common.button}} onClick={this.onSaveClicked}>
+          <button class="save-button" style={{...common.cursorPointer, ...common.button}} onClick={props.onSaveClicked}>
             Save
           </button>
           </div>
-         {this.sections(sectionsInfo)}
+         {renderSections(sectionsInfo)}
        </div>
         );
-    }
 }
 
 const mapStateToProps = state => {
