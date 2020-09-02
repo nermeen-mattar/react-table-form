@@ -98,46 +98,38 @@ class Form extends React.Component {
         this.state = {
             objects: []
         };
-
-        // this.trackAdsViewByIframeClick = this.trackAdsViewByIframeClick.bind(this);
     }
 
 
     componentDidMount() {
-        console.log('ob', this.props.objects);
     }
 
     componentWillUnmount() {
     }
 
 
-sections = sections => sections.map((section, index) => <div key={index}>
+    sections = sections => sections.map((section, index) => <div class="section" key={index}>
+    <h3> {section.title} </h3>
+    {this.inputs(section.fieldNames)}
+    </div>);
 
-
-  <h1> {section.title} </h1>
-
-  {this.inputs(section.fieldNames)}
-</div>);
-
-inputs = inputs => inputs.map((input, index) => 
-    <div class="field-label">
-      {fieldsInfo[input].label}
-          <input key={index} type={fieldsInfo[input].type}/>
-    </div>
-);
+    inputs = inputs => inputs.map((input, index) => 
+        <div class="field-label">
+        {fieldsInfo[input].label}
+            <input key={index} type={fieldsInfo[input].type}/>
+        </div>
+    );
 
     render() {
         return (
        <div style={common.container}>
          <div style={common.flexBetween}>
-         <a href='../'> <button style={{...common.cursorPointer, ...common.button, ...common.secondary}} >
-       
+         <a href='/'> <button style={{...common.cursorPointer, ...common.button, ...common.secondary}} >
           Cancel
-    
           </button>
           </a>
-          <button style={{...common.cursorPointer, ...common.button, ...common.primary}} onClick={this.onSaveClicked}>
-          Save
+          <button class="save-button" style={{...common.cursorPointer, ...common.button}} onClick={this.onSaveClicked}>
+            Save
           </button>
           </div>
          {this.sections(sectionsInfo)}

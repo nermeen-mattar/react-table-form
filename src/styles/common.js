@@ -1,5 +1,3 @@
-// import Colors from "../constants/Colors";
-
 export default {
     shadow: {
         shadowColor: '#000000',
@@ -18,14 +16,11 @@ export default {
         borderRadius: '25px',
         padding: '12px',
         border: 'none',
-    },
-    primary: {
-        background: 'lightcoral',
-        fontWeight: 'bold',
         color: 'white',
+        fontWeight: 'bold',
     },
     secondary: {
-        background: '#ccc',
+        background: '#aaa',
     },
     container: {
         marginRight: 'auto',

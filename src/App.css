@@ -1,27 +1,12 @@
 
 
-body {
-  background-color:rgba(240,128,128,0.05);
-  font-family: "monospace", "Helvetica", "Arial", "sans-serif";
-}
-
-a {
-  text-decoration: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .header {
-  background-color:#2d3e50;
+  background-color: var(--primary);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--light);
   margin-bottom: 3rem;
 }
 

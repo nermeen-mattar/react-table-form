@@ -99,5 +99,7 @@
   }
 
   .edit-row {
-    color: lightcoral;
+    font-weight: bold;
+    color: var(--secondary);
+    cursor: pointer;
   }
