@@ -1,136 +1,75 @@
-import React from 'react';
-import { connect } from "react-redux";
+import React, {useState} from 'react';
+import 'react-dropdown/style.css';
 
 import "./index.css";
 import common from '../../styles/common';
 import { useHistory } from 'react-router-dom';
 
-const formInfo = {
-  title: "Sign Up"
-};
+export default function Form(props) {
 
-const sectionsInfo = [{
-  "title": "Details",
-  "fieldNames": ["firstname", "username", "email", "website"]
-}, {
-  'title': 'Authentication',
-  'fieldNames': ['password', 'confirm-password'],
-  'validators': [{
-      'name': 'equal',
-      'customErrMsg': 'Password and Confirm password should be equal.'
-  }]
-}, 
-];
+    const [isSaving, toggleSaving] = useState(false);
 
-const fieldsInfo = {
-  'firstname': {
-      'type': 'text',
-      'label': 'First Name',
-      'validators': [{
-          'name': 'required'
-      }]
-  },
-  'username': {
-      'type': 'text',
-      'label': 'Username',
-      'validators': [{
-          'name': 'required'
-      }, {
-          'name': 'username'
-      }]
-  },
-  'email': {
-      'type': 'text',
-      'label': 'Email',
-      'validators': [{
-          'name': 'required'
-      }, {
-          'name': 'email'
-      }]
-  },
-  'website': {
-      'type': 'text',
-      'label': 'Website',
-      'validators': [{
-          'name': 'url'
-      }]
-  },
-  'password': {
-      'type': 'password',
-      'label': 'Password',
-      'validators': [{
-          'name': 'required'
-      }, {
-          'name': 'minlength',
-          specs: 5
-      }, {
-          'name': 'maxlength',
-          specs: 12
-      }]
-  },
-  'confirm-password': {
-      'type': 'password',
-      'label': 'Confirm Password',
-      'validators': [{
-          'name': 'required'
-      }]
-  },
-  'accept-terms': {
-      'type': 'checkbox',
-      'label': 'Accept the Terms',
-      'validators': [{
-          'name': 'required',
-          'customErrMsg': 'You should accept terms.'
-      }, {
-          'name': 'isChecked',
-          'customErrMsg': 'You should accept terms.'
-      }]
-  }
-};
+    const handleInputChange = e => {
+        const {name, value} = e.target;
+        setValues({...values, [name]: value})
+    }
+    const [values, setValues] = useState(props.values || {})
 
-function Form(props) {
 
     const renderSections = sections => sections.map((section, index) => <div class="section" key={index}>
     <h3> {section.title} </h3>
-    {renderInputs(section.fieldNames)}
+    {renderfields(section.fieldNames)}
     </div>);
 
-    const renderInputs = inputs => inputs.map((input, index) => 
-        <div class="field-label">
-        {fieldsInfo[input].label}
-            <input key={index} type={fieldsInfo[input].type}/>
-        </div>
-    );
- 
+    const renderfields = fields => fields.map((fieldName, index) => {
+        const fieldSpec = props.schema.fieldsInfo[fieldName];
+        switch(fieldSpec.type) {            
+            case 'dropdown':
+                return <div class="field"> <label>{fieldSpec.label}</label>
+                         <select name={fieldName} style={common.field} onChange={handleInputChange} value={values[fieldName]} placeholder="Select an option">
+                          {fieldSpec.options.map(selectOption => <option value={selectOption}>{selectOption}</option>)}
+                        </select>
+                    </div>
+            case 'checkbox':
+                return <div class="field" style={common.flexCenter}>
+                <input name={fieldName} type={fieldSpec.type} onChange={handleInputChange} checked={values[fieldName]}/>
+                <span>{fieldSpec.label}</span>
+                </div>
+            case 'radio':
+                return <div>
+                         {fieldSpec.options.map(radioOption => <div class="field">
+                            <input name={fieldName} type={fieldSpec.type} onChange={handleInputChange} value={radioOption} checked={values[fieldName] === radioOption}/>
+                            <label>{radioOption}</label>
+                        </div>)}
+                    </div>
+            default:
+                return <div class="field">
+                    {fieldSpec.label}
+                    <input name={fieldName} style={common.field} key={index} type={fieldSpec.type} onChange={handleInputChange} value={values[fieldName]}/>
+                </div>
+        }
+    });
+
+    const goBack = useHistory().goBack;
+    const onSaveClicked = () => {
+        props.onSaveClicked(values);
+        toggleSaving(true);
+        setTimeout(goBack, 2000); // to simulate saving to backend
+    }
+
     return (
+    
        <div style={common.container}>
+           {JSON.stringify(values)}
          <div style={common.flexBetween}>
-        <button onClick={useHistory().goBack} style={{...common.cursorPointer, ...common.button, ...common.secondary}} >
+        <button onClick={goBack} style={{...common.cursorPointer, ...common.button, ...common.secondary}} >
           Cancel
           </button>
-          <button class="save-button" style={{...common.cursorPointer, ...common.button}} onClick={props.onSaveClicked}>
-            Save
+          <button onClick={onSaveClicked} class="save-button" style={{...common.cursorPointer, ...common.button}}>
+            {isSaving ? 'Saving...' : 'Save'}
           </button>
           </div>
-         {renderSections(sectionsInfo)}
+         {renderSections(props.schema.sectionsInfo)}
        </div>
-        );
+       );
 }
-
-const mapStateToProps = state => {
-    return {
-    heads: state.heads,
-      objects: state.objects
-    };
-  };
-  
-  const mapDispachToProps = dispatch => {
-    return {
-      onSaveClicked: () => dispatch({ type: "CREATE_OBJECT", value: 1 }),
-    };
-  };
-  export default connect(
-    mapStateToProps,
-    mapDispachToProps
-  )(Form);
-  

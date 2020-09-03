@@ -1,6 +1,7 @@
 import React from 'react';
 
 import "./index.css";
+import common from '../../styles/common';
 
 export default function Table (props) {
 
@@ -29,7 +30,7 @@ export default function Table (props) {
         {/* <h1>{table.title}</h1> */}
         <div class="form-control">
           <label for="search"><i class="icon-search"></i></label>
-          <input class="table-filter" type="search" data-table="simple-table" placeholder="Search..."/>
+          <input style={common.field} type="search" data-table="simple-table" placeholder="Search..."/>
         </div>
         <div class="table-responsive">
           <table id="ordering-table" class="simple-table">

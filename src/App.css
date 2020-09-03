@@ -9,10 +9,3 @@
   color: var(--light);
   margin-bottom: 3rem;
 }
-
-input {
-  box-shadow: 0 1px 1px 0 #D9DFE4;
-  border:none!important;
-  height: 40px;
-  margin: 0.3rem 0 0.8rem 0;
-}

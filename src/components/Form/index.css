@@ -1,14 +1,22 @@
-  input,
+  input[type=text], input[type=number],
   select,
   textarea {
     border: 1px solid #ddd;
     border-radius: 3px;
-    color: #666;
     display: block;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.25;
-    max-width: 100%;
     width: 100%;
+  }
+  
+  input[type=radio], input[type=checkbox]{
+    margin: 0 1rem 0 0.2rem;
+    transform: scale(1.6);
+  }
+
+  .field {
+    color: #666;
+    margin: 0.3rem 0 0.8rem 0;
   }
   
   input::-moz-placeholder,
@@ -20,7 +28,7 @@
   
   input:focus,
   textarea:focus {
-    border: 10px solid #40bb93;
+    border: 1px solid var(--secondary);
     outline: medium;
   }
   
@@ -37,10 +45,6 @@
     margin-top: 3rem;
   }
 
-  .field-label {
-    color: #666;
-    font-size: 16px;
-  }
 
   .save-button {
     background-color: var(--secondary)

@@ -6,9 +6,10 @@
     "availability": 261,
     "url": "https://amazon.com/basic_keyboard",
     "price_tier": "budget",
-    "price_range": "$1-10",
+    "price_range": "$11-20",
+
     "unit_cost": "$10.47",
-    "isEditable": true
+    "is_editable": true
   },
   {
     "_id": 2,
@@ -19,7 +20,7 @@
     "price_tier": "premium",
     "price_range": "$50-100",
     "unit_cost": "$55.99",
-    "isEditable": false
+    "is_editable": false
   },
   {
     "_id": 3,
@@ -30,6 +31,6 @@
     "price_tier": "premium",
     "price_range": "$200+",
     "unit_cost": "$250",
-    "isEditable": true
+    "is_editable": true
   }
 ]

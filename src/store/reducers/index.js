@@ -1,4 +1,3 @@
-import tableReducer from "./tableReducer";
+import objectsReducer from "./objectsReducer";
 
-
-export default tableReducer
+export default objectsReducer

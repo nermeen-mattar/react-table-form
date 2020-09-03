@@ -5,19 +5,24 @@ const initialState = {
   objects: []
 };
 
-const tableReducer = (state = initialState, action) => {
+const objectsReducer = (state = initialState, action) => {
   const newState = { ...state };
-
+  debugger;
   switch (action.type) {
     case "INIT_OBJECTS":
-      debugger;
       newState.objects = action.value;
       break;
     case "CREATE_OBJECT_ASYNC":
-      newState.objects = [...initialState.objects, action.value];
+      newState.objects.push(action.value);
       break;
+    case "EDIT_OBJECT_ASYNC":
+      const objectIndex = newState.objects.findIndex(object => object._id === action.value._id);
+      newState.objects[objectIndex] = action.value; // add a preventive check if objectIndex -1
+      break;
+    default: 
+      return newState;
   }
   return newState;
 };
 
-export default tableReducer;
+export default objectsReducer;
