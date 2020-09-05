@@ -12,11 +12,13 @@ function App (props) {
   return (
       <HashRouter>
          <header class="header">
+         <div id="logo"></div>
           <h1>
-            Products
+            Table and Form Builder
           </h1>
         </header>
       <div class="body"> 
+        <Route path='/create' component={ProductForm}/>
         <Route path='/edit' component={ProductForm}/>
         <Route exact path='/' component={ProductList}/>
       </div>

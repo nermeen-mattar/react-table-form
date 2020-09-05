@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import {connect} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 
 import Table from '../components/Table';
 import common from '../styles/common';
@@ -14,28 +14,29 @@ import common from '../styles/common';
 function ProductList(props) {
   const history = useHistory();
   const ProductsTableSchema = {
-        show: ['product_name', 'weight', 'availability'],
-        actions: {
-          showEdit: (obj) => obj.is_editable,
-          onEdit: (obj) => {
-              history.push(`/edit?id=${obj._id}`);
-          },
-        }
-      }
-      return (
-        <div style={common.container}>
-           <Table data={props.products} schema={ProductsTableSchema} ></Table>
-        </div>
-      );
+    title: 'PRODUCTS',
+    show: ['product_name', 'weight', 'availability'],
+    actions: {
+      showEdit: (obj) => obj.is_editable,
+      onEdit: (obj) => {
+        history.push(`/edit?id=${obj._id}`);
+      },
+    },
+  };
+  return (
+    <div style={common.container}>
+      <Table data={props.products} schema={ProductsTableSchema} ></Table>
+    </div>
+  );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    products: state.objects
+    products: state.objects,
   };
 };
 
 export default connect(
-  mapStateToProps,
-  null
+    mapStateToProps,
+    null,
 )(ProductList);

@@ -7,6 +7,7 @@
     font-size: 16px;
     max-width: 100%;
     width: 100%;
+    margin-top: 1rem;
   }
   
   table td,
@@ -16,7 +17,10 @@
     padding: 12px;
     text-align: left;
     vertical-align: middle;
-    color: var(--primary)
+  }
+
+  table td {
+    color: gray;
   }
   
   table th {
@@ -50,50 +54,3 @@
     color: var(--secondary);
     cursor: pointer;
   }
-  
-  /* .switch {
-    display: inline-block;
-    height: 2em;
-    position: relative;
-    vertical-align: middle;
-    width: 3.5em;
-  }
-  
-  .switch input {
-    display: none;
-    margin: 0;
-  } 
-  
-  .slider {
-    background-color: #ccc;
-    border-radius: 1em;
-    bottom: 0;
-    cursor: pointer;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: all 0.4s ease 0s;
-  }
-  
-  .slider::before {
-    background-color: white;
-    border-radius: 0.7em;
-    bottom: 4px;
-    content: "";
-    height: 1.4em;
-    left: 4px;
-    position: absolute;
-    transition: all 0.4s ease 0s;
-    width: 1.4em;
-  }
-  
-  input:checked + .slider {
-    background-color: #40bb93;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(1.5em);
-    -ms-transform: translateX(1.5em);
-    transform: translateX(1.5em);
-  }*/

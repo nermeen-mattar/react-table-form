@@ -3,9 +3,17 @@
 .header {
   background-color: var(--primary);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: var(--light);
   margin-bottom: 3rem;
+  text-align: center;
+}
+
+#logo {
+  background: url(./assets/logo.png) no-repeat;
+  background-size: contain;
+  height: 75px;
+  width: 75px;
+  margin: 0 1rem;
 }

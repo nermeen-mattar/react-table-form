@@ -2,6 +2,7 @@ import React from 'react';
 
 import "./index.css";
 import common from '../../styles/common';
+import { useHistory } from 'react-router-dom';
 
 export default function Table (props) {
 
@@ -25,24 +26,34 @@ export default function Table (props) {
     </td> : <td></td>
     ];
 
+    const history = useHistory();
+    const onCreateClicked = () => {
+      history.push(`/create`);
+    }
+
     return (
       <div>
-        {/* <h1>{table.title}</h1> */}
-        <div class="form-control">
-          <label for="search"><i class="icon-search"></i></label>
-          <input style={common.field} type="search" data-table="simple-table" placeholder="Search..."/>
+        <h2>{props.schema.title}</h2>
+        <div style={common.flexBetween}>
+        {/* Search functionality (To be finalized)
+        <div> 
+            <label for="search"><i class="icon-search"></i></label>
+            <input style={common.field} type="search" data-table="simple-table" placeholder="Search..."/>
+          </div> 
+        */}
+          <button onClick={onCreateClicked} class="save-button" style={{...common.cursorPointer, ...common.button}}>
+            Create
+            </button>
         </div>
-        <div class="table-responsive">
-          <table id="ordering-table" class="simple-table">
-            <thead>        
+        <table class="simple-table">
+          <thead>        
               {renderHeads(heads)}
-              <th></th>
-            </thead>
-            <tbody>
-            {renderRows(rows)}
-            </tbody>
-          </table>
-        </div>
-    </div>
+                <th></th>
+              </thead>
+              <tbody>
+              {renderRows(rows)}
+              </tbody>
+            </table>
+      </div>
     );
 }
